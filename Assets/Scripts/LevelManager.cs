@@ -353,7 +353,7 @@ public class LevelManager : MonoBehaviour {
             Destroy(player);
             CloseExitPortal();
             history_players.Clear();
-            
+            time_frozen = false;
             ResetIncursion();
             CloseAllStreams();
             Spawn_Spawn_Pickup_Item(current_level);
@@ -637,6 +637,7 @@ public class LevelManager : MonoBehaviour {
                 Destroy(go);
                 CloseExitPortal();
                 IncLevel();
+                time_frozen = false;
                 if (cheat && current_level >= 1) {
                     CleanUpAllElements();
                     StartCoroutine(Fadout_to_NextLevel());
