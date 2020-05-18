@@ -2263,7 +2263,7 @@ RectTransform:
   - {fileID: 1635535910}
   - {fileID: 160487348}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2421,6 +2421,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 61393962130962370, guid: 79dbb98861ab15e488510c8f21228013,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 15.462093
+      objectReference: {fileID: 0}
+    - target: {fileID: 61393962130962370, guid: 79dbb98861ab15e488510c8f21228013,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 51.600716
+      objectReference: {fileID: 0}
     - target: {fileID: 3505763578641357496, guid: 79dbb98861ab15e488510c8f21228013,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2459,7 +2469,7 @@ PrefabInstance:
     - target: {fileID: 3505763578641357496, guid: 79dbb98861ab15e488510c8f21228013,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3505763578641357496, guid: 79dbb98861ab15e488510c8f21228013,
         type: 3}
@@ -3698,7 +3708,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1945653809
 GameObject:
@@ -4824,7 +4834,7 @@ PrefabInstance:
     - target: {fileID: 8557312889734701959, guid: 7351b5eb5e8ce7346a884fc68a7a8b47,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8557312889734701959, guid: 7351b5eb5e8ce7346a884fc68a7a8b47,
         type: 3}
@@ -7975,6 +7985,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 61393962130962370, guid: 79dbb98861ab15e488510c8f21228013,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 13.069914
+      objectReference: {fileID: 0}
+    - target: {fileID: 61393962130962370, guid: 79dbb98861ab15e488510c8f21228013,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 46.81635
+      objectReference: {fileID: 0}
     - target: {fileID: 3505763578641357496, guid: 79dbb98861ab15e488510c8f21228013,
         type: 3}
       propertyPath: m_LocalPosition.x
