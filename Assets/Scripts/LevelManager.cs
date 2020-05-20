@@ -69,7 +69,7 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] int Incursion_Fix_at = 5;
     [SerializeField] int Incursion_Fix_at_location = 5;
     [NonSerialized] private bool incursion_fix = false;
-
+    [SerializeField] Animator incursion_animator;
 
     [Header("Timer")]
     [SerializeField] private int start_time = 30;
@@ -289,6 +289,9 @@ public class LevelManager : MonoBehaviour {
         if (incursion_meter != null) {
             if (cheat == false) {
                 incursions++;
+            }
+            if (incursion_animator != null) {
+                incursion_animator.Play("aberation", -1, 0f);
             }
             incursion_meter.value = incursions;
         }
