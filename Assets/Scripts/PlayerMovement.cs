@@ -233,6 +233,7 @@ public class PlayerMovement : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D collision) {
         if (collision.gameObject.tag == "WALL") {
             bGrounded = false;
+            
             if (shadowsr != null) {
                 shadowsr.enabled = false;
             }
@@ -286,13 +287,19 @@ public class PlayerMovement : MonoBehaviour {
 
                 fJumpPressedRemember -= Time.deltaTime;
                 if (Input.GetButtonDown("Jump")) {
+                   
                     jumped = true;
                     fJumpPressedRemember = fJumpPressedRememberTime;
+                   // animator.SetBool("jump", true);
                 }
 
                 if (Input.GetButtonUp("Jump")) {
+                    //animator.SetBool("jump", false);
                     if (rigid.velocity.y > 0) {
+                        
+                        
                         rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * fCutJumpHeight);
+                        
                     }
                 }
 
@@ -304,7 +311,9 @@ public class PlayerMovement : MonoBehaviour {
                     fJumpPressedRemember = 0;
                     fGroundedRemember = 0;
                     rigid.velocity = new Vector2(rigid.velocity.x, fJumpVelocity);
+                   
                 }
+               
 
                 float input = Input.GetAxisRaw("Horizontal");
                 float fHorizontalVelocity = rigid.velocity.x;
@@ -329,14 +338,21 @@ public class PlayerMovement : MonoBehaviour {
                 }
                 float verlocity = Mathf.Abs(rigid.velocity.x * 0.1f);
                 animator.speed = verlocity;
-                animator.SetFloat("speed", Mathf.Abs(rigid.velocity.x));
+                if(bGrounded == true) {
+                    animator.SetFloat("speed", Mathf.Abs(rigid.velocity.x));
+                } else {
+                    animator.SetFloat("speed",0);
+                }
+               
                 if (animator != null) {
                     // Debug.Log(rigid.velocity.x.ToString());
                 }
 
                 if (jumped == true && bGrounded == true) {
+                    
                     if (audio != null && audio_jump != null) {
                         audio.PlayOneShot(audio_jump);
+                       
                     }
                 } else {
                     if (Mathf.Abs(input) > 0 && bGrounded == true) {
