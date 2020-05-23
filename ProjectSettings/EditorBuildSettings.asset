@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/EndGame.unity
+    path: Assets/Scenes/Credits.unity
     guid: 6104451f1e08e4e4caaff80d1a52ae16
   - enabled: 1
     path: Assets/Scenes/Zone1a.unity
@@ -26,4 +26,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: 2a99392230a133a48a208e1a76889d8e
+  - enabled: 1
+    path: Assets/Scenes/Complete.unity
+    guid: d463b4077dde7fa4c8f617bd86a92b49
+  - enabled: 1
+    path: Assets/Scenes/EndGame.unity
+    guid: b20ff9996a443544c952d057b2bb6533
+  - enabled: 1
+    path: Assets/Scenes/Score.unity
+    guid: aca51021708a7f847a0e01eeab9fa0bf
   m_configObjects: {}

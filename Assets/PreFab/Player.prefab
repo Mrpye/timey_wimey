@@ -217,6 +217,9 @@ MonoBehaviour:
     t: 0
     x: 0
     y: 0
+  platform_layermask:
+    serializedVersion: 2
+    m_Bits: 4352
   animator: {fileID: 0}
   sr: {fileID: 0}
   shadowsr: {fileID: 0}
@@ -233,6 +236,7 @@ MonoBehaviour:
   level_data: {fileID: 11400000, guid: 2201976cdf97b484d9e402ac381fa204, type: 2}
   level_manager: {fileID: 455344914, guid: 0cf57fa5a4462b344964c82af0f9ba69, type: 3}
   audio_jump: {fileID: 8300000, guid: 49795c1fc238f0347af8e5398a6eb72d, type: 3}
+  player_walk_sound: 0
 --- !u!61 &61003408161240910
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -292,7 +296,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

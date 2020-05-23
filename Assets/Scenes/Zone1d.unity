@@ -7424,7 +7424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd8045f2bd0fd54db51dbd020c8b1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cheat: 0
+  cheat: 1
   level_data:
   - start: 0
     pickup: 3
@@ -7456,6 +7456,7 @@ MonoBehaviour:
   - start: 10
     pickup: 4
     exit: 5
+  current_level_no: 0
   spawn_wait: 1
   history_player_prefab: {fileID: 8977188797397511604, guid: 793e2685ee3401b4ebc24d870499f460,
     type: 3}

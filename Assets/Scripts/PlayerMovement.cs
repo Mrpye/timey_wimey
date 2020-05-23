@@ -12,10 +12,11 @@ public class PlayerMovement : MonoBehaviour {
         public float t;         // time
         public float x;
         public float y;
-
+        public bool grounded;
         public void init() {
             x = 0;
             y = 0;
+            grounded = true;
         }
     };
 
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour {
     public FileStream fs;
     private StreamReader inputPlaybackStream;
     private StreamWriter inputRecordStream;
-
+ 
     [Header("Record/Playback")]
     [SerializeField] public Mode mode = Mode.Record;
 
@@ -48,10 +49,12 @@ public class PlayerMovement : MonoBehaviour {
 
     [SerializeField] public InputSequence currentSequence;
     [SerializeField] public InputSequence nextSequence;
+    [SerializeField] private LayerMask platform_layermask; 
     public Animator animator;
     public SpriteRenderer sr;
     public SpriteRenderer shadowsr;
     private Rigidbody2D rigid;
+    private Collider2D bol_col;
     private float fJumpPressedRemember = 0;
     private float fGroundedRemember = 0;
     [SerializeField] private float fJumpPressedRememberTime = 0.2f;
@@ -69,6 +72,8 @@ public class PlayerMovement : MonoBehaviour {
     private int wall_mask;
     private int player_mask;
 
+
+
     [Header("LevelData")]
     [SerializeField] private GameData level_data;
 
@@ -77,7 +82,7 @@ public class PlayerMovement : MonoBehaviour {
     [Header("Audio")]
     //[SerializeField] AudioClip audio_walk;
     [SerializeField] private AudioClip audio_jump;
-
+    public bool player_walk_sound;
     private AudioSource audio;
 
     private void StartPlayer(GameObject player, int level, bool playback) {
@@ -102,6 +107,7 @@ public class PlayerMovement : MonoBehaviour {
        
         audio = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody2D>();
+        bol_col = GetComponent<BoxCollider2D>();
         wall_mask = LayerMask.NameToLayer("Wall");
         player_mask = LayerMask.NameToLayer("Player");
         Physics2D.IgnoreLayerCollision(player_mask, wall_mask, false);
@@ -119,6 +125,7 @@ public class PlayerMovement : MonoBehaviour {
         if (shadowsr != null) {
             shadowsr.enabled = false;
         }
+        animator.SetBool("grounded", true);
     }
 
     public void Stop() {
@@ -185,6 +192,7 @@ public class PlayerMovement : MonoBehaviour {
         currentSequence.x = gameObject.transform.position.x;
         currentSequence.y = gameObject.transform.position.y;
         currentSequence.t = getTime();
+        currentSequence.grounded = bGrounded;
         fs.Position = current_pos;
         inputRecordStream.WriteLine(JsonUtility.ToJson(currentSequence));
         current_pos = fs.Position;
@@ -211,6 +219,7 @@ public class PlayerMovement : MonoBehaviour {
         fs.Position = current_pos;
         string newline = inputPlaybackStream.ReadLine();
         current_pos = fs.Position;
+        
         if (newline == null) { return false; }
         try {
             nextSequence = JsonUtility.FromJson<InputSequence>(newline);
@@ -220,12 +229,14 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
+    /*
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "WALL") {
             bGrounded = true;
             if (shadowsr != null) {
                 shadowsr.enabled = true;
-                jump_off_platform = false;
+                //jump_off_platform = false;
+               
             }
         }
     }
@@ -233,21 +244,39 @@ public class PlayerMovement : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D collision) {
         if (collision.gameObject.tag == "WALL") {
             bGrounded = false;
-            
             if (shadowsr != null) {
                 shadowsr.enabled = false;
             }
         }
     }
+    */
+    private bool ISGrounded() {
 
+
+
+         RaycastHit2D hit= Physics2D.Raycast(bol_col.bounds.center, Vector3.down, bol_col.bounds.extents.y + +0.05f, platform_layermask);
+        Debug.DrawRay(bol_col.bounds.center, Vector2.down * (bol_col.bounds.extents.y+ 0.05f));
+        if (hit.collider != null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
     private IEnumerator JumpOffPlatform() {
         jump_off_platform = true;
+        animator.SetBool("grounded", jump_off_platform);
         Physics2D.IgnoreLayerCollision(player_mask, wall_mask, true);
         yield return new WaitForSeconds(0.2f);
         Physics2D.IgnoreLayerCollision(player_mask, wall_mask, false);
         jump_off_platform = false;
+        animator.SetBool("grounded", jump_off_platform);
     }
-
+    public void PlayWalkingSound() {
+        if(audio != null){
+            audio.Play();
+        }
+    }
     private void Update() {
         bool jumped = false;
         if (running == true) {
@@ -269,14 +298,26 @@ public class PlayerMovement : MonoBehaviour {
                             } else {
                                 velocity = 0;
                             }
-                            animator.speed = Mathf.Abs(velocity * 0.1f);
+                           // animator.speed = Mathf.Abs(velocity * 0.1f);
+                            float verlocity = Mathf.Abs(velocity / 20);
+                            animator.SetFloat("animation_speed", verlocity);
                             animator.SetFloat("speed", Mathf.Abs(speed));
+                            animator.SetBool("grounded", currentSequence.grounded);
                         }
                     }
                 }
             } else {
+
+                bGrounded = ISGrounded();
+
+                if (shadowsr != null) {
+                    shadowsr.enabled = bGrounded;
+                }
+
+                //*************************
+                //Use a time crystal
+                //*************************
                 if (Input.GetButtonDown("Fire1")) {
-                    //This will fix time incursion or freeze time
                     level_manager.TimeCrystalUsed();
                 }
 
@@ -287,22 +328,20 @@ public class PlayerMovement : MonoBehaviour {
 
                 fJumpPressedRemember -= Time.deltaTime;
                 if (Input.GetButtonDown("Jump")) {
-                   
                     jumped = true;
                     fJumpPressedRemember = fJumpPressedRememberTime;
-                   // animator.SetBool("jump", true);
                 }
+                
 
                 if (Input.GetButtonUp("Jump")) {
-                    //animator.SetBool("jump", false);
                     if (rigid.velocity.y > 0) {
-                        
-                        
                         rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * fCutJumpHeight);
-                        
                     }
                 }
 
+                //*************************
+                //Make the player Jump down
+                //*************************
                 if ((Input.GetButtonDown("Down") || Input.GetAxisRaw("Vertical") < 0) && bGrounded && jump_off_platform == false) {
                     StartCoroutine(JumpOffPlatform());
                 }
@@ -336,32 +375,40 @@ public class PlayerMovement : MonoBehaviour {
                 } else {
                     sr.flipX = false;
                 }
-                float verlocity = Mathf.Abs(rigid.velocity.x * 0.1f);
-                animator.speed = verlocity;
-                if(bGrounded == true) {
+                float verlocity = Mathf.Abs(rigid.velocity.x /20);
+
+
+                //  animator.speed = 1;
+               // Debug.Log(verlocity);
+                //animator.speed = verlocity;
+                animator.SetFloat("animation_speed", verlocity);
+
+
+                animator.SetBool("grounded", bGrounded);
+                if (bGrounded == true) {
                     animator.SetFloat("speed", Mathf.Abs(rigid.velocity.x));
                 } else {
                     animator.SetFloat("speed",0);
                 }
+
                
-                if (animator != null) {
-                    // Debug.Log(rigid.velocity.x.ToString());
-                }
 
                 if (jumped == true && bGrounded == true) {
-                    
                     if (audio != null && audio_jump != null) {
-                        audio.PlayOneShot(audio_jump);
-                       
+                        jumped = false;
+                        //audio.Stop();
+                        audio.PlayOneShot(audio_jump);   
                     }
-                } else {
-                    if (Mathf.Abs(input) > 0 && bGrounded == true) {
-                        if (!audio.isPlaying) {
-                            audio.Play();
+                } else if(Mathf.Abs(input) > 0 && bGrounded == true) {
+                    /*if (!audio.isPlaying) {
+                        if (player_walk_sound == true) {
+                            player_walk_sound = false;
+                            //audio.Play();
                         }
-                    } else if (Mathf.Abs(input) == 0 && bGrounded == true) {
-                        audio.Stop();
-                    }
+                        //audio.Play();
+                    }*/
+                } else {
+                   // audio.Stop();
                 }
             }
         }

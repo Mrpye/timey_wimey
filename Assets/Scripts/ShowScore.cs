@@ -18,7 +18,7 @@ public class ShowScore : MonoBehaviour
 
         
         if (score != null && txt != null) {
-            txt.text = "Score: " + score.score.ToString();
+            txt.text =score.score.ToString();
         }
         
 

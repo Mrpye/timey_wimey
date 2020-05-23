@@ -10,6 +10,7 @@ TagManager:
   - WALL
   - TRANSPORT
   - INCUR_FIX
+  - HAZZARD
   layers:
   - Default
   - TransparentFX

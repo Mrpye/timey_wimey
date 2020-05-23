@@ -1,10 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuOptions : MonoBehaviour
 {
+    PersistentManagerScript score;
+
+    [SerializeField] private Transition transition;
+
+
     public void PlayGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
@@ -12,40 +16,47 @@ public class MenuOptions : MonoBehaviour
 
     public void ResetScore() {
         PersistentManagerScript score = GameObject.Find("PersistentScoreManager").GetComponent<PersistentManagerScript>();
-        score.ResetScore();
+        score.ResetAll();
     }
+
     public void MainMenu() {
         ResetScore();
-        SceneManager.LoadScene("MainMenu");
+        transition.EndLevelFadeOut("MainMenu");
+        //SceneManager.LoadScene("MainMenu");
 
     }
 
+    public void LoadNextLevel() {
+        transition.EndLevelFadeOut();
+    }
     public void Instructions() {
-        SceneManager.LoadScene("Instructions");
+        transition.EndLevelFadeOut("Instructions");
+       
     }
     public void PlayAgain() {
         ResetScore();
-        SceneManager.LoadScene("Zone1a");
-
+        transition.EndLevelFadeOut("Zone1a");
+    }
+    public void Credits() {
+        ResetScore();
+        transition.EndLevelFadeOut("Credits");
     }
     public void LevelSelect() {
         ResetScore();
-        SceneManager.LoadScene("LevelSelect");
-
+        transition.EndLevelFadeOut("LevelSelect");
     }
     public void Level1() {
         ResetScore();
-        SceneManager.LoadScene("Zone1a");
-
+        transition.EndLevelFadeOut("Zone1a");
     }
     public void Level2() {
         ResetScore();
-        SceneManager.LoadScene("Zone1b");
+        transition.EndLevelFadeOut("Zone1b");
 
     }
     public void Level3() {
         ResetScore();
-        SceneManager.LoadScene("Zone1c");
+        transition.EndLevelFadeOut("Zone1c");
 
     }
     public void QuitGame() {

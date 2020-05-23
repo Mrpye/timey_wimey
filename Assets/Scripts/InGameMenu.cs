@@ -23,7 +23,7 @@ public class InGameMenu : MonoBehaviour
 
     public void ResetScore() {
         PersistentManagerScript score = GameObject.Find("PersistentScoreManager").GetComponent<PersistentManagerScript>();
-        score.ResetScore();
+        score.ResetAll();
     }
     public void MainMenu() {
         gameObject.SetActive(false);

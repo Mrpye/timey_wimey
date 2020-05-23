@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //***********************************************************************
@@ -27,13 +26,12 @@ public class LevelManager : MonoBehaviour {
     [Header("Debug")]
     [SerializeField] private bool cheat;
 
-   
     [Header("Level Data")]
     [SerializeField] private List<LevelData> level_data = new List<LevelData>();
 
+    [SerializeField] private int current_level_no;
 
     [SerializeField] private int spawn_wait;
-
 
     [Header("Prefabs")]
     [SerializeField] private GameObject history_player_prefab;
@@ -48,40 +46,48 @@ public class LevelManager : MonoBehaviour {
 
     [Header("UI")]
     [SerializeField] private Slider incursion_meter;
+
     [SerializeField] private Text txtscore;
-    [SerializeField] private Image whitescreen;
+
+    // [SerializeField] private Image whitescreen;
+    [SerializeField] private Transition transition;
+
     [SerializeField] private List<Image> item_pickedup;
     [SerializeField] private List<Image> item_lives;
     [SerializeField] private Text txtTimer;
 
     [Header("Point")]
     [SerializeField] private int pickup_points = 10;
+
     [SerializeField] private int exit_points = 50;
 
     [Header("Invulnerability")]
     [SerializeField] private int inv_seconds = 2;
+
     [SerializeField] private int time_freeze_seconds = 5;
     public Boolean invincible = false;
 
     [Header("Incursion")]
     [SerializeField] private int incursions;
+
     [SerializeField] private int max_incursions;
-    [SerializeField] int Incursion_Fix_at = 5;
-    [SerializeField] int Incursion_Fix_at_location = 5;
+    [SerializeField] private int Incursion_Fix_at = 5;
+    [SerializeField] private int Incursion_Fix_at_location = 5;
     [NonSerialized] private bool incursion_fix = false;
-    [SerializeField] Animator incursion_animator;
+    [SerializeField] private Animator incursion_animator;
 
     [Header("Timer")]
     [SerializeField] private int start_time = 30;
+
     private int current_time;
     private Coroutine timer_obj;
     public bool time_frozen;
 
     [Header("Audio")]
     [SerializeField] public AudioClip time_freeze_audio;
-    [SerializeField] public AudioClip crystal_used_audio;
-    AudioSource audioSource;
 
+    [SerializeField] public AudioClip crystal_used_audio;
+    private AudioSource audioSource;
 
     private int items_collected;
     public int current_level;
@@ -98,7 +104,9 @@ public class LevelManager : MonoBehaviour {
     private void Start() {
         CleanUp();
         score = GameObject.Find("PersistentScoreManager").GetComponent<PersistentManagerScript>();
-        SetWhiteToTransparent();
+        score.current_level = current_level_no;
+        transition.BeginingFadein();
+        // SetWhiteToTransparent();
         spawn_points = GetComponent<SpawnPointList>();
         current_level = 0;
         StartCoroutine(Wait_And_Spawn_New_Player(0));
@@ -107,22 +115,21 @@ public class LevelManager : MonoBehaviour {
         Spawn_Spawn_Pickup_Item(0);
         SetupIncursionMetere();
         ResetItemCollected();
-        FadeOut();
-        ResetLifes();
+
+        UI_DrawLives();
         incursion_fix = false;
         time_frozen = false;
         audioSource = GetComponent<AudioSource>();
     }
 
     public void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            if(ingame_menu != null) {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (ingame_menu != null) {
                 ingame_menu.SetActive(true);
                 Time.timeScale = 0;
             }
         }
     }
-
 
     public void CleanUpAllElements() {
         //*********************
@@ -146,7 +153,6 @@ public class LevelManager : MonoBehaviour {
         ResetItemCollected();
     }
 
-
     public void IncLevel() {
         current_level++;
     }
@@ -164,63 +170,47 @@ public class LevelManager : MonoBehaviour {
         time_frozen = false;
     }
 
-    private void SetWhiteToTransparent() {
-        if (whitescreen != null) {
-            whitescreen.canvasRenderer.SetAlpha(1.0f);
-        }
-    }
+    /* private void SetWhiteToTransparent() {
+         if (whitescreen != null) {
+             whitescreen.canvasRenderer.SetAlpha(1.0f);
+         }
+     }*/
+
     public void TimeCrystalUsed() {
-        if (time_frozen == false) { 
-            DecLife();
-            if (incursions == 0) {
-                StartCoroutine(FreezeTime());
-            } else {
-               
-                DecIncursion();
-            }
-        } else {
-            if (incursions > 0) {
+        if (score.lives > 0) {
+            if (time_frozen == false) {
                 DecLife();
-                DecIncursion();
+                if (incursions == 0) {
+                    StartCoroutine(FreezeTime());
+                } else {
+                    DecIncursion();
+                }
+            } else {
+                if (incursions > 0) {
+                    DecLife();
+                    DecIncursion();
+                }
             }
         }
     }
-    private void FadeIn() {
-        if (whitescreen != null) {
-            whitescreen.CrossFadeAlpha(1.0f, 1.0f, true);
-        }
-    }
 
-    private void FadeOut() {
-        if (whitescreen != null) {
-            whitescreen.CrossFadeAlpha(0.0f, 1.0f, true);
+    /*
+        private void FadeIn() {
+            if (whitescreen != null) {
+                whitescreen.CrossFadeAlpha(1.0f, 1.0f, true);
+            }
         }
-    }
 
+        private void FadeOut() {
+            if (whitescreen != null) {
+                whitescreen.CrossFadeAlpha(0.0f, 1.0f, true);
+            }
+        }
+        */
 
     #region Lives
-    public void ResetLifes() {
-        for (int i = 0; i < this.item_lives.Count; i++) {
-            item_lives[i].enabled = true;
-        }
-    }
 
-    public void DecLife() {
-        score.SubLife();
-        for (int i = 0; i < this.item_lives.Count; i++) {
-            if (i <= score.lives- 1) {
-                item_lives[i].enabled = true;
-            } else {
-                item_lives[i].enabled = false;
-            }
-        }
-    }
-
-    public void AddLife() {
-        if (score.AddLife()) {
-            //We got a full set of lifes so time will get frozen
-            StartCoroutine(FreezeTime());
-        }
+    public void UI_DrawLives() {
         for (int i = 0; i < this.item_lives.Count; i++) {
             if (i <= score.lives - 1) {
                 item_lives[i].enabled = true;
@@ -230,10 +220,23 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    #endregion
+    public void DecLife() {
+        score.SubLife();
+        UI_DrawLives();
+    }
 
+    public void AddLife() {
+        if (score.AddLife()) {
+            //We got a full set of lifes so time will get frozen
+            StartCoroutine(FreezeTime());
+        }
+        UI_DrawLives();
+    }
+
+    #endregion Lives
 
     #region TimeCrystal Functions
+
     public void DecItemCollected() {
         items_collected = current_level;
         for (int i = 0; i < item_pickedup.Count; i++) {
@@ -256,8 +259,8 @@ public class LevelManager : MonoBehaviour {
         item_pickedup[items_collected].enabled = true;
         items_collected++;
     }
-    #endregion
 
+    #endregion TimeCrystal Functions
 
     public void TransportTo(GameObject go, Target target) {
         if (target.xpos_only == true) {
@@ -275,6 +278,7 @@ public class LevelManager : MonoBehaviour {
     }
 
     #region Incursions Functions
+
     private void DecIncursion() {
         incursions--;
         if (incursion_meter != null) {
@@ -288,6 +292,7 @@ public class LevelManager : MonoBehaviour {
     private void IncIncursion() {
         if (incursion_meter != null) {
             if (cheat == false) {
+                score.no_hit_bonus = false;
                 incursions++;
             }
             if (incursion_animator != null) {
@@ -311,8 +316,8 @@ public class LevelManager : MonoBehaviour {
             incursion_meter.value = incursions;
         }
     }
-    #endregion
 
+    #endregion Incursions Functions
 
     public void CloseStream(int level) {
         if (session_count[level] <= 0) {
@@ -362,14 +367,13 @@ public class LevelManager : MonoBehaviour {
             Spawn_Spawn_Pickup_Item(current_level);
             //ResetItemCollected();
             DecItemCollected();
-            for(int i=0; i< current_level; i++) {
+            for (int i = 0; i < current_level; i++) {
                 StartCoroutine(Wait_And_Spawn_New_History_Player(i));
             }
             StartCoroutine(Wait_And_Spawn_New_Player(current_level));
         }
     }
 
-   
     public void Player_Diedold() {
         CloseStream(current_level);
         current_level--;
@@ -401,36 +405,41 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    
-
     public void SpaceTimeDestroyed() {
         CleanUpAllElements();
-        StartCoroutine(Fadout_to_endgame());
+        transition.EndLevelFadeOut("EndGame");
+        //StartCoroutine(Fadout_to_endgame());
     }
+
+    /*
 
     private IEnumerator Fadout_to_endgame() {
-        
-        FadeIn();
-        yield return new WaitForSeconds(2);
+        //FadeIn();
+        //yield return new WaitForSeconds(2);
         SceneManager.LoadScene("EndGame");
     }
+
     private IEnumerator Fadout_to_NextLevel() {
-        FadeIn();
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+        //yield return new WaitForSeconds(2);
 
-
+       /*ceneManager.LoadScene("Score");
+        } else {
+            SceneManager.LoadScene("Score");
+        }
+  / }*/
 
     private void Start_Timer() {
-        Stop_Timer();
+        Stop_Timer(false) ;
         current_time = start_time;
         timer_obj = StartCoroutine(Timer());
     }
 
-    private void Stop_Timer() {
+    private void Stop_Timer(bool addtime) {
         if (timer_obj != null) {
             StopCoroutine(timer_obj);
+        }
+        if (addtime == true) { 
+        score.AddRemainingTime(current_time);
         }
         txtTimer.text = "Time: " + start_time.ToString();
     }
@@ -445,8 +454,6 @@ public class LevelManager : MonoBehaviour {
         SpaceTimeDestroyed();
     }
 
-
-
     #region FileManager
 
     public void CloseAllStreams() {
@@ -458,12 +465,14 @@ public class LevelManager : MonoBehaviour {
         this.fs.Clear();
         session_count.Clear();
     }
+
     private void CleanUp() {
         if (current_spawn_item != null) { Destroy(current_spawn_item); }
         if (exit_portal != null) { Destroy(exit_portal); }
         if (current_spawn_item != null) { Destroy(current_spawn_item); }
         if (incursion_fix_item != null) { Destroy(incursion_fix_item); }
     }
+
     public FileStream GetFileStream(int level, bool read) {
         FileStream fs = null;
         string path = Application.persistentDataPath + "/level" + level + ".json";
@@ -495,10 +504,8 @@ public class LevelManager : MonoBehaviour {
         }
         return fs;
     }
-    #endregion
 
-
-
+    #endregion FileManager
 
     private void SetSpawnPointRed(int level) {
         SpriteRenderer sr = spawn_points.spawn_point_list[level_data[level].start].GetComponent<SpriteRenderer>();
@@ -594,7 +601,6 @@ public class LevelManager : MonoBehaviour {
         pm.fs = GetFileStream(level, true);
     }
 
-
     private IEnumerator Wait_Spawn_New_Incursion_Fix() {
         GameObject spawn_portal = Instantiate(player_portal_prefab, spawn_points.spawn_point_list[Incursion_Fix_at_location].transform.position, Quaternion.identity);
         yield return new WaitForSeconds(spawn_wait);
@@ -608,8 +614,7 @@ public class LevelManager : MonoBehaviour {
     public void Spawn_New_Incursion_Fix(int Incursion_Fix_at_location) {
         GameObject new_player = Instantiate(incursion_fix_prefab, spawn_points.spawn_point_list[Incursion_Fix_at_location].transform.position, Quaternion.identity);
         Game2DTrigger trig = new_player.GetComponent<Game2DTrigger>();
-        trig.level_manager =this;
-
+        trig.level_manager = this;
     }
 
     public void Time_Crystal_Collected(GameObject go) {
@@ -621,7 +626,7 @@ public class LevelManager : MonoBehaviour {
         this.Spawn_Exit_Portal(current_level);
         IncPickupScore(pickup_points);
         IncItemCollected();
-        if(items_collected >= Incursion_Fix_at && incursion_fix == false) {
+        if (items_collected >= Incursion_Fix_at && incursion_fix == false) {
             incursion_fix = true;
             StartCoroutine(Wait_Spawn_New_Incursion_Fix());
         }
@@ -635,7 +640,8 @@ public class LevelManager : MonoBehaviour {
                 //******************
                 //This is the player
                 //******************
-                Stop_Timer();
+
+                Stop_Timer(true);
                 CloseStream(current_level);
                 Destroy(go);
                 CloseExitPortal();
@@ -643,10 +649,12 @@ public class LevelManager : MonoBehaviour {
                 time_frozen = false;
                 if (cheat && current_level >= 1) {
                     CleanUpAllElements();
-                    StartCoroutine(Fadout_to_NextLevel());
-                }else if (current_level >= level_data.Count) {
+                    //StartCoroutine(Fadout_to_NextLevel());
+                    transition.EndLevelFadeOut("score");
+                } else if (current_level >= level_data.Count) {
                     CleanUpAllElements();
-                    StartCoroutine(Fadout_to_NextLevel());
+                    transition.EndLevelFadeOut("score");
+                    //StartCoroutine(Fadout_to_NextLevel());
                 } else {
                     StartCoroutine(Wait_And_Spawn_New_Player(current_level));
                     if (current_level > 0) {
