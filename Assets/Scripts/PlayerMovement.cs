@@ -86,9 +86,9 @@ public class PlayerMovement : MonoBehaviour{
     private AudioSource audio;
 
 
-    protected Joystick joy_stick;
-    protected JoyButton joy_button;
-
+    [SerializeField] private Joystick joy_stick;
+    [SerializeField] private JoyButton joy_button1;
+    [SerializeField] private JoyButton joy_button2;
     private void StartPlayer(GameObject player, int level, bool playback) {
         level_manager.SetGameObjectToPos(player, level);
         is_history_player = playback;
@@ -111,7 +111,8 @@ public class PlayerMovement : MonoBehaviour{
 
 
         joy_stick = FindObjectOfType<Joystick>();
-        joy_button = FindObjectOfType<JoyButton>();
+        joy_button1=GameObject.Find("FixedJoyButton1").GetComponent<JoyButton>();
+        joy_button2 = GameObject.Find("FixedJoyButton2").GetComponent<JoyButton>();
 
         audio = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody2D>();
@@ -325,7 +326,8 @@ public class PlayerMovement : MonoBehaviour{
                 //*************************
                 //Use a time crystal
                 //*************************
-                if (Input.GetButtonDown("Fire1") || joy_button.Pressed) {
+                if (Input.GetButtonDown("Fire1") || joy_button2.Pressed) {
+
                     level_manager.TimeCrystalUsed();
                 }
 
@@ -335,18 +337,21 @@ public class PlayerMovement : MonoBehaviour{
                 }
 
                 fJumpPressedRemember -= Time.deltaTime;
-                if (Input.GetButtonDown("Jump")) {
+
+                if (Input.GetButtonDown("Jump") || joy_button1.Pressed) {
+                    //joy_button1.Pressed = false;
                     jumped = true;
                     fJumpPressedRemember = fJumpPressedRememberTime;
                 }
                 
 
-                if (Input.GetButtonUp("Jump")) {
+                if (Input.GetButtonUp("Jump")||joy_button1.Pressed==false) {
                     if (rigid.velocity.y > 0) {
                         rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * fCutJumpHeight);
                     }
                 }
 
+               
                 //*************************
                 //Make the player Jump down
                 //*************************
