@@ -813,6 +813,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1918727899}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &201147483 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4762235014214766800, guid: 095f2d972ff589641a86829fd9cc6ae9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2001084936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &213941214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,6 +1895,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50c115f87f819554995ef023c713788c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &647115273 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4762235015641309884, guid: 095f2d972ff589641a86829fd9cc6ae9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2001084936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &662288454
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,6 +3233,12 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!212 &1020394292 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4762235015823651997, guid: 095f2d972ff589641a86829fd9cc6ae9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2001084936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1070049852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8557312889734701959, guid: 7351b5eb5e8ce7346a884fc68a7a8b47,
@@ -6123,12 +6141,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 399238531}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2032232663 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1998698729448139790, guid: 6d8c43561e4a33a41884c12960972546,
-    type: 3}
-  m_PrefabInstance: {fileID: 8711439577669278247}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2032232664 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5461478229324252874, guid: 6d8c43561e4a33a41884c12960972546,
@@ -6695,6 +6707,7 @@ GameObject:
   - component: {fileID: 7804086347192838053}
   - component: {fileID: 7804086347192838052}
   - component: {fileID: 7804086347538130564}
+  - component: {fileID: 6383618651074847807}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -6702,6 +6715,48 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6383618651074847807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6383618651074847806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb31f82088872243b78513922f0a537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 2056852625}
+  - {fileID: 1680424564}
+  - {fileID: 2106728449}
+  - {fileID: 1795722980}
+  - {fileID: 213941215}
+  - {fileID: 132522651}
+  - {fileID: 152344184}
+  - {fileID: 1108606744}
+  - {fileID: 1193660967}
+  - {fileID: 99393922}
+  - {fileID: 23587706}
+  - {fileID: 662288457}
+  - {fileID: 665401163}
+  - {fileID: 1465240933}
+  - {fileID: 816917506}
+  - {fileID: 724172963}
+  - {fileID: 1742309708}
+  - {fileID: 1144343159}
+  - {fileID: 1814970128075615788}
+  - {fileID: 220197122}
+  - {fileID: 1526003810}
+  - {fileID: 1020394292}
+  - {fileID: 201147483}
+  - {fileID: 647115273}
+  ColorA: {r: 1, g: 1, b: 1, a: 1}
+  ColorB: {r: 0.990566, g: 0.8890322, b: 0.2756764, a: 1}
+  ColorC: {r: 0.3490566, g: 0.34082413, b: 0.34082413, a: 1}
+  fideintimeA: 60
+  fideintimeB: 200
 --- !u!4 &7340054794147766379
 Transform:
   m_ObjectHideFlags: 0
@@ -6799,6 +6854,8 @@ MonoBehaviour:
     exit: 4
   current_level_no: 1
   spawn_wait: 1
+  day_night: {fileID: 6383618651074847807}
+  change_at: 4
   history_player_prefab: {fileID: 8977188797397511604, guid: 793e2685ee3401b4ebc24d870499f460,
     type: 3}
   player_prefab: {fileID: 8977188797397511604, guid: 95190e4d1aff163469946b310096a81f,
@@ -6813,7 +6870,7 @@ MonoBehaviour:
     type: 3}
   incursion_fix_prefab: {fileID: 797461686143132919, guid: 7f58e6d2c3ae08d46b1e08af91cd98b6,
     type: 3}
-  ingame_menu: {fileID: 2032232663}
+  ingame_menu: {fileID: 0}
   incursion_meter: {fileID: 1453659635}
   txtscore: {fileID: 44902865}
   transition: {fileID: 646287639}

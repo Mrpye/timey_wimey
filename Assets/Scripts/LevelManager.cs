@@ -32,7 +32,9 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] private int current_level_no;
 
     [SerializeField] private int spawn_wait;
+    [SerializeField] public DayNight day_night;
 
+    [SerializeField] public int change_at;
     [Header("Prefabs")]
     [SerializeField] private GameObject history_player_prefab;
 
@@ -94,6 +96,7 @@ public class LevelManager : MonoBehaviour {
     private GameObject exit_portal;
     private GameObject current_spawn_item;
     private GameObject incursion_fix_item;
+    private bool day_night_flag = false;
     private GameObject player;
     private PersistentManagerScript score;
     private SpawnPointList spawn_points;
@@ -103,6 +106,7 @@ public class LevelManager : MonoBehaviour {
 
     private void Start() {
         CleanUp();
+        day_night_flag = false;
         score = GameObject.Find("PersistentScoreManager").GetComponent<PersistentManagerScript>();
         score.current_level = current_level_no;
         transition.BeginingFadein();
@@ -115,7 +119,6 @@ public class LevelManager : MonoBehaviour {
         Spawn_Spawn_Pickup_Item(0);
         SetupIncursionMetere();
         ResetItemCollected();
-
         UI_DrawLives();
         incursion_fix = false;
         time_frozen = false;
@@ -123,12 +126,12 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        /*if (Input.GetKeyDown(KeyCode.Escape)) {
             if (ingame_menu != null) {
                 ingame_menu.SetActive(true);
                 Time.timeScale = 0;
             }
-        }
+        }*/
     }
 
     public void CleanUpAllElements() {
@@ -170,12 +173,6 @@ public class LevelManager : MonoBehaviour {
         time_frozen = false;
     }
 
-    /* private void SetWhiteToTransparent() {
-         if (whitescreen != null) {
-             whitescreen.canvasRenderer.SetAlpha(1.0f);
-         }
-     }*/
-
     public void TimeCrystalUsed() {
         if (score.lives > 0) {
             if (time_frozen == false) {
@@ -193,20 +190,6 @@ public class LevelManager : MonoBehaviour {
             }
         }
     }
-
-    /*
-        private void FadeIn() {
-            if (whitescreen != null) {
-                whitescreen.CrossFadeAlpha(1.0f, 1.0f, true);
-            }
-        }
-
-        private void FadeOut() {
-            if (whitescreen != null) {
-                whitescreen.CrossFadeAlpha(0.0f, 1.0f, true);
-            }
-        }
-        */
 
     #region Lives
 
@@ -374,62 +357,14 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    public void Player_Diedold() {
-        CloseStream(current_level);
-        current_level--;
-        if (current_level < 0) {
-            SpaceTimeDestroyed();
-        } else {
-            List<GameObject> tmp = new List<GameObject>();
-            foreach (GameObject go in history_players) {
-                if (go != null) {
-                    PlayerMovement pm = go.GetComponent<PlayerMovement>();
-                    if (pm.current_level >= current_level) {
-                        Destroy(go);
-                    } else {
-                        if (pm.current_level == current_level - 1) {
-                            pm.current_pos = 0;
-                        }
-                        tmp.Add(go);
-                    }
-                }
-            }
-            history_players = tmp;
-            CleanUp();
-            Destroy(player);
-            CloseExitPortal();
-            DecItemCollected();
-            CloseStream(current_level);
-            StartCoroutine(Wait_And_Spawn_New_Player(current_level));
-            Spawn_Spawn_Pickup_Item(current_level);
-        }
-    }
-
     public void SpaceTimeDestroyed() {
         CleanUpAllElements();
         transition.EndLevelFadeOut("EndGame");
         //StartCoroutine(Fadout_to_endgame());
     }
 
-    /*
-
-    private IEnumerator Fadout_to_endgame() {
-        //FadeIn();
-        //yield return new WaitForSeconds(2);
-        SceneManager.LoadScene("EndGame");
-    }
-
-    private IEnumerator Fadout_to_NextLevel() {
-        //yield return new WaitForSeconds(2);
-
-       /*ceneManager.LoadScene("Score");
-        } else {
-            SceneManager.LoadScene("Score");
-        }
-  / }*/
-
     private void Start_Timer() {
-        Stop_Timer(false) ;
+        Stop_Timer(false);
         current_time = start_time;
         timer_obj = StartCoroutine(Timer());
     }
@@ -438,8 +373,8 @@ public class LevelManager : MonoBehaviour {
         if (timer_obj != null) {
             StopCoroutine(timer_obj);
         }
-        if (addtime == true) { 
-        score.AddRemainingTime(current_time);
+        if (addtime == true) {
+            score.AddRemainingTime(current_time);
         }
         txtTimer.text = "Time: " + start_time.ToString();
     }
@@ -640,7 +575,6 @@ public class LevelManager : MonoBehaviour {
                 //******************
                 //This is the player
                 //******************
-
                 Stop_Timer(true);
                 CloseStream(current_level);
                 Destroy(go);
@@ -663,6 +597,14 @@ public class LevelManager : MonoBehaviour {
                     //current_item_spawn_point--;
                     IncPickupScore(exit_points);
                     Spawn_Spawn_Pickup_Item(current_level);
+                }
+                if (day_night != null && change_at== current_level) {
+                    if (day_night_flag == false) {
+                        day_night_flag = true;
+                        day_night.Go();
+
+                    }
+                   
                 }
             } else {
                 int tmp_level = pm.current_level + 1;

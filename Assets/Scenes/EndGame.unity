@@ -1191,7 +1191,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PLayAgain
+  m_Text: PLay Again
 --- !u!222 &1124882206
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1358,7 +1358,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0
-  m_Text: PLayAgain
+  m_Text: PLay Again
 --- !u!222 &1158078786
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2010,6 +2010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transition: {fileID: 1210278641}
+  version: {fileID: 0}
 --- !u!82 &1266602581
 AudioSource:
   m_ObjectHideFlags: 0

@@ -376,14 +376,7 @@ public class PlayerMovement : MonoBehaviour {
                     sr.flipX = false;
                 }
                 float verlocity = Mathf.Abs(rigid.velocity.x /20);
-
-
-                //  animator.speed = 1;
-               // Debug.Log(verlocity);
-                //animator.speed = verlocity;
                 animator.SetFloat("animation_speed", verlocity);
-
-
                 animator.SetBool("grounded", bGrounded);
                 if (bGrounded == true) {
                     animator.SetFloat("speed", Mathf.Abs(rigid.velocity.x));
@@ -391,7 +384,7 @@ public class PlayerMovement : MonoBehaviour {
                     animator.SetFloat("speed",0);
                 }
 
-               
+              
 
                 if (jumped == true && bGrounded == true) {
                     if (audio != null && audio_jump != null) {

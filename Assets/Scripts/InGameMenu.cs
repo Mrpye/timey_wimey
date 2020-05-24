@@ -19,8 +19,6 @@ public class InGameMenu : MonoBehaviour
         Time.timeScale = 1;
     } 
 
-
-
     public void ResetScore() {
         PersistentManagerScript score = GameObject.Find("PersistentScoreManager").GetComponent<PersistentManagerScript>();
         score.ResetAll();

@@ -10,9 +10,9 @@ public class ShowScore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // if (score == null) {
-            score = GameObject.Find("PersistentScoreManager").GetComponent<PersistentManagerScript>();
-       // }
+
+       score = GameObject.Find("PersistentScoreManager").GetComponent<PersistentManagerScript>();
+
       
         Text txt = GetComponent<Text>();
 

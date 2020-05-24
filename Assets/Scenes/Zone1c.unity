@@ -901,12 +901,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!1 &136843386 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1998698729448139790, guid: 6d8c43561e4a33a41884c12960972546,
-    type: 3}
-  m_PrefabInstance: {fileID: 1587382140}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &166155773
 GameObject:
   m_ObjectHideFlags: 0
@@ -7431,6 +7425,8 @@ MonoBehaviour:
     exit: 5
   current_level_no: 2
   spawn_wait: 1
+  day_night: {fileID: 0}
+  change_at: 0
   history_player_prefab: {fileID: 8977188797397511604, guid: 793e2685ee3401b4ebc24d870499f460,
     type: 3}
   player_prefab: {fileID: 8977188797397511604, guid: 95190e4d1aff163469946b310096a81f,
@@ -7445,7 +7441,7 @@ MonoBehaviour:
     type: 3}
   incursion_fix_prefab: {fileID: 797461686143132919, guid: 7f58e6d2c3ae08d46b1e08af91cd98b6,
     type: 3}
-  ingame_menu: {fileID: 136843386}
+  ingame_menu: {fileID: 0}
   incursion_meter: {fileID: 1453659635}
   txtscore: {fileID: 44902865}
   transition: {fileID: 1945538585}

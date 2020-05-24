@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Zone1c.unity
     guid: 18222195ef1b82e43b4cddea836832b1
   - enabled: 1
+    path: Assets/Scenes/Zone1d.unity
+    guid: eb2a95ac40068884a9863085c5ba52a5
+  - enabled: 1
     path: Assets/Scenes/Instructions.unity
     guid: 2d81fc9dfebca5541ae1db88f57978ac
   - enabled: 1

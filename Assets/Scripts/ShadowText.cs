@@ -17,36 +17,12 @@ public class ShadowText : MonoBehaviour {
     }
 
     private void Start() {
-      /*  Transform t = gameObject.transform.Find("text");
-        if (t != null) {
-            txt = t.GetComponent<Text>();
-        }
-
-        Transform t1 = gameObject.transform.Find("shaddow");
-        if (t1 != null) {
-            shaddow = t.GetComponent<Text>();
-        }*/
 
          NormalColor();
     }
 
     public void UpdateText(string text) {
         this.text = text;
-/*
-        if (txt == null) {
-            Transform t = gameObject.transform.Find("text");
-            if (t != null) {
-                txt = t.GetComponent<Text>();
-            }
-        }
-
-        if (shaddow == null) {
-            Transform t1 = gameObject.transform.Find("shaddow");
-            if (t1 != null) {
-                shaddow = t1.GetComponent<Text>();
-            }
-        }
-        */
         txt.text = text;
         shaddow.text = text;
     }

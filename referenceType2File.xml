@@ -3,7 +3,7 @@
   <TypeDate>
     <guid>842f43ac94b4b4f72ac0898650ddcc44</guid>
     <fileName>Assets/Editor/AssetCollector.cs</fileName>
-    <timeStamp>2020-05-17T12:48:34.4939078+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.1596869+01:00</timeStamp>
     <typeFullName>
       <string>AssetClean.AssetCollector</string>
     </typeFullName>
@@ -12,7 +12,7 @@
   <TypeDate>
     <guid>805140a4856714e288ea84985d3023df</guid>
     <fileName>Assets/Editor/AssetReferenceCollection.cs</fileName>
-    <timeStamp>2020-05-17T12:48:34.5128597+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.1726058+01:00</timeStamp>
     <typeFullName>
       <string>AssetReferenceCollection</string>
     </typeFullName>
@@ -21,7 +21,7 @@
   <TypeDate>
     <guid>202c278a17939b24c8b79c0ee1f94d8f</guid>
     <fileName>Assets/Editor/ClassReferenceCollection.cs</fileName>
-    <timeStamp>2020-05-17T12:48:34.5278184+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.1836088+01:00</timeStamp>
     <typeFullName>
       <string>AssetClean.ClassReferenceCollection</string>
     </typeFullName>
@@ -30,7 +30,7 @@
   <TypeDate>
     <guid>0d05386265df34bac8d0b6df44aa494c</guid>
     <fileName>Assets/Editor/CollectionData.cs</fileName>
-    <timeStamp>2020-05-17T12:48:34.5447721+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.2005636+01:00</timeStamp>
     <typeFullName>
       <string>CollectionData</string>
       <string>TypeDate</string>
@@ -41,7 +41,7 @@
   <TypeDate>
     <guid>74eec3bfba0594259ac2843353c082a3</guid>
     <fileName>Assets/Editor/FindUnusedAssetsWindow.cs</fileName>
-    <timeStamp>2020-05-17T12:48:34.5577362+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.2115357+01:00</timeStamp>
     <typeFullName>
       <string>AssetClean.FindUnusedAssetsWindow</string>
     </typeFullName>
@@ -50,7 +50,7 @@
   <TypeDate>
     <guid>2c4f01a79a77a45a9a84004cc2b78098</guid>
     <fileName>Assets/Editor/ShaderReferenceCollection.cs</fileName>
-    <timeStamp>2020-05-17T12:48:34.5726959+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.223502+01:00</timeStamp>
     <typeFullName>
       <string>AssetClean.ShaderReferenceCollection</string>
     </typeFullName>
@@ -59,7 +59,7 @@
   <TypeDate>
     <guid>fc7b66e71df97cb4392723f52ec5925e</guid>
     <fileName>Assets/Scripts/Cloud.cs</fileName>
-    <timeStamp>2020-05-13T20:52:21.4815974+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.8158855+01:00</timeStamp>
     <typeFullName>
       <string>Cloud</string>
     </typeFullName>
@@ -68,7 +68,7 @@
   <TypeDate>
     <guid>c8afe571a996d3748b4cedaf8e9cb4d9</guid>
     <fileName>Assets/Scripts/Game2DTrigger.cs</fileName>
-    <timeStamp>2020-05-15T07:39:51.112625+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.8258931+01:00</timeStamp>
     <typeFullName>
       <string>Game2DTrigger</string>
     </typeFullName>
@@ -77,7 +77,7 @@
   <TypeDate>
     <guid>6210d5afefd60064a86f6ab93c94d3e7</guid>
     <fileName>Assets/Scripts/GameData.cs</fileName>
-    <timeStamp>2020-05-12T07:24:19.7308195+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.8368291+01:00</timeStamp>
     <typeFullName>
       <string>GameData</string>
     </typeFullName>
@@ -86,7 +86,7 @@
   <TypeDate>
     <guid>0fd8045f2bd0fd54db51dbd020c8b1cc</guid>
     <fileName>Assets/Scripts/LevelManager.cs</fileName>
-    <timeStamp>2020-05-17T14:12:04.3277131+01:00</timeStamp>
+    <timeStamp>2020-05-23T14:05:01.8532915+01:00</timeStamp>
     <typeFullName>
       <string>LevelManager</string>
       <string>LevelManager+LevelData</string>
@@ -96,7 +96,7 @@
   <TypeDate>
     <guid>b246398db796a27439887308a7cafd6a</guid>
     <fileName>Assets/Scripts/MenuOptions.cs</fileName>
-    <timeStamp>2020-05-17T11:50:22.7957982+01:00</timeStamp>
+    <timeStamp>2020-05-23T06:49:42.5905933+01:00</timeStamp>
     <typeFullName>
       <string>MenuOptions</string>
     </typeFullName>
@@ -105,7 +105,7 @@
   <TypeDate>
     <guid>433fdec0bb71fa248afa77dcd3b224f6</guid>
     <fileName>Assets/Scripts/MoveWithPlatform.cs</fileName>
-    <timeStamp>2020-05-12T17:50:29.4297512+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.8797396+01:00</timeStamp>
     <typeFullName>
       <string>MoveWithPlatform</string>
     </typeFullName>
@@ -114,7 +114,7 @@
   <TypeDate>
     <guid>bc474d47c1581bd4288bdac15dc027fe</guid>
     <fileName>Assets/Scripts/MovingPlatform.cs</fileName>
-    <timeStamp>2020-05-12T17:40:46.105643+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.8897314+01:00</timeStamp>
     <typeFullName>
       <string>MovingPlatform</string>
     </typeFullName>
@@ -123,7 +123,7 @@
   <TypeDate>
     <guid>b6fc02e15be17584f81001322badc347</guid>
     <fileName>Assets/Scripts/PersistentManagerScript.cs</fileName>
-    <timeStamp>2020-05-17T13:26:48.5341758+01:00</timeStamp>
+    <timeStamp>2020-05-22T05:53:26.11617+01:00</timeStamp>
     <typeFullName>
       <string>PersistentManagerScript</string>
     </typeFullName>
@@ -132,7 +132,7 @@
   <TypeDate>
     <guid>0ccc4dd95da8a454f86f2312461cea80</guid>
     <fileName>Assets/Scripts/PlayerFlip.cs</fileName>
-    <timeStamp>2020-05-09T07:54:44.3617482+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.910676+01:00</timeStamp>
     <typeFullName>
       <string>PlayerFlip</string>
     </typeFullName>
@@ -141,7 +141,7 @@
   <TypeDate>
     <guid>9b03d38126102bc48a869f8c968d830f</guid>
     <fileName>Assets/Scripts/PlayerMovement.cs</fileName>
-    <timeStamp>2020-05-17T13:21:34.0097026+01:00</timeStamp>
+    <timeStamp>2020-05-22T17:44:12.2775088+01:00</timeStamp>
     <typeFullName>
       <string>PlayerMovement</string>
       <string>PlayerMovement+UpdateFunction</string>
@@ -153,7 +153,7 @@
   <TypeDate>
     <guid>2d019924d3251fa44859f3e33ca2dd2d</guid>
     <fileName>Assets/Scripts/ShowScore.cs</fileName>
-    <timeStamp>2020-05-12T17:15:29.2248928+01:00</timeStamp>
+    <timeStamp>2020-05-21T08:41:45.1010936+01:00</timeStamp>
     <typeFullName>
       <string>ShowScore</string>
     </typeFullName>
@@ -162,7 +162,7 @@
   <TypeDate>
     <guid>9c3dff7fa028e234ca833dee1d36ab45</guid>
     <fileName>Assets/Scripts/SpawnPointList.cs</fileName>
-    <timeStamp>2020-05-09T07:54:44.3020001+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.9445747+01:00</timeStamp>
     <typeFullName>
       <string>SpawnPointList</string>
     </typeFullName>
@@ -171,7 +171,7 @@
   <TypeDate>
     <guid>8a858c77d85c62e429454be498a6ffe9</guid>
     <fileName>Assets/Scripts/Target.cs</fileName>
-    <timeStamp>2020-05-09T09:46:47.1506171+01:00</timeStamp>
+    <timeStamp>2020-05-18T06:27:07.9535329+01:00</timeStamp>
     <typeFullName>
       <string>Target</string>
     </typeFullName>
@@ -180,10 +180,150 @@
   <TypeDate>
     <guid>e6072c9befb300e44bdb556c769619fd</guid>
     <fileName>Assets/Scripts/InGameMenu.cs</fileName>
-    <timeStamp>2020-05-17T14:20:16.1100813+01:00</timeStamp>
+    <timeStamp>2020-05-22T04:17:51.1646969+01:00</timeStamp>
     <typeFullName>
       <string>InGameMenu</string>
     </typeFullName>
     <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>a37d705c8e9115e439ec799186182634</guid>
+    <fileName>Assets/Joystick Pack/Examples/JoystickPlayerExample.cs</fileName>
+    <timeStamp>2019-03-24T14:21:04+00:00</timeStamp>
+    <typeFullName>
+      <string>JoystickPlayerExample</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>3d73bf03f88f371469fd7b43fc97d77e</guid>
+    <fileName>Assets/Joystick Pack/Examples/JoystickSetterExample.cs</fileName>
+    <timeStamp>2019-03-24T14:20:55+00:00</timeStamp>
+    <typeFullName>
+      <string>JoystickSetterExample</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>b9fca4100a7477741b3973b4ff2c405f</guid>
+    <fileName>Assets/Joystick Pack/Scripts/Base/Joystick.cs</fileName>
+    <timeStamp>2019-03-24T14:21:06+00:00</timeStamp>
+    <typeFullName>
+      <string>Joystick</string>
+      <string>AxisOptions</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>52071c88a467b46438b3cbf159bf988b</guid>
+    <fileName>Assets/Joystick Pack/Scripts/Editor/DynamicJoystickEditor.cs</fileName>
+    <timeStamp>2019-03-24T14:20:57+00:00</timeStamp>
+    <typeFullName>
+      <string>DynamicJoystickEditor</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>614d06243900d764f9c50b4da2c950a3</guid>
+    <fileName>Assets/Joystick Pack/Scripts/Editor/FloatingJoystickEditor.cs</fileName>
+    <timeStamp>2019-03-24T14:21:00+00:00</timeStamp>
+    <typeFullName>
+      <string>FloatingJoystickEditor</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>d4b2b0d911a01a64ebfca9918e2b90b4</guid>
+    <fileName>Assets/Joystick Pack/Scripts/Editor/JoystickEditor.cs</fileName>
+    <timeStamp>2019-03-24T14:21:09+00:00</timeStamp>
+    <typeFullName>
+      <string>JoystickEditor</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>58b5a2db95af76c4c9d4116a09ec3697</guid>
+    <fileName>Assets/Joystick Pack/Scripts/Editor/VariableJoystickEditor.cs</fileName>
+    <timeStamp>2019-03-24T14:20:58+00:00</timeStamp>
+    <typeFullName>
+      <string>VariableJoystickEditor</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>ba0d0e7a039f526499c356a3c5cd6d3f</guid>
+    <fileName>Assets/Joystick Pack/Scripts/Joysticks/DynamicJoystick.cs</fileName>
+    <timeStamp>2019-03-24T14:21:07+00:00</timeStamp>
+    <typeFullName>
+      <string>DynamicJoystick</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>45977bbae16431c46a013576a1aea384</guid>
+    <fileName>Assets/Joystick Pack/Scripts/Joysticks/FixedJoystick.cs</fileName>
+    <timeStamp>2019-03-24T14:20:56+00:00</timeStamp>
+    <typeFullName>
+      <string>FixedJoystick</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>7a47f546fc70ec8428172694e78e4288</guid>
+    <fileName>Assets/Joystick Pack/Scripts/Joysticks/FloatingJoystick.cs</fileName>
+    <timeStamp>2019-03-24T14:21:02+00:00</timeStamp>
+    <typeFullName>
+      <string>FloatingJoystick</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>42844a4fccbd54746b90cade4ff70f73</guid>
+    <fileName>Assets/Joystick Pack/Scripts/Joysticks/VariableJoystick.cs</fileName>
+    <timeStamp>2019-03-24T14:20:55+00:00</timeStamp>
+    <typeFullName>
+      <string>VariableJoystick</string>
+      <string>JoystickType</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>55675a3e235ef7441a94394c4e57291f</guid>
+    <fileName>Assets/Scripts/ScoreAnimation.cs</fileName>
+    <timeStamp>2020-05-23T11:16:35.9222625+01:00</timeStamp>
+    <typeFullName>
+      <string>ScoreAnimation</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>d3bf1ae6894deed44aaffeeffe9753e4</guid>
+    <fileName>Assets/Scripts/ShadowText.cs</fileName>
+    <timeStamp>2020-05-23T08:00:56.0801011+01:00</timeStamp>
+    <typeFullName>
+      <string>ShadowText</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>50c115f87f819554995ef023c713788c</guid>
+    <fileName>Assets/Scripts/Transition.cs</fileName>
+    <timeStamp>2020-05-23T10:52:10.9255662+01:00</timeStamp>
+    <typeFullName>
+      <string>Transition</string>
+    </typeFullName>
+    <assemblly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assemblly>
+  </TypeDate>
+  <TypeDate>
+    <guid>e8f6d3c6e4250e84192f5b34ce9e71bc</guid>
+    <fileName>Assets/SpriteGlow/Runtime/SpriteGlowEffect.cs</fileName>
+    <timeStamp>2020-05-18T06:45:28.4718994+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>a7af5f0dbc0a2fd48b175d8fd1ae86a4</guid>
+    <fileName>Assets/SpriteGlow/Runtime/SpriteGlowMaterial.cs</fileName>
+    <timeStamp>2020-05-18T06:49:19.5250669+01:00</timeStamp>
+    <typeFullName />
   </TypeDate>
 </ArrayOfTypeDate>

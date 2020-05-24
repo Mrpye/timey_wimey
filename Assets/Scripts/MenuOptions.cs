@@ -1,14 +1,24 @@
 ﻿
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class MenuOptions : MonoBehaviour
 {
     PersistentManagerScript score;
 
     [SerializeField] private Transition transition;
 
-
+    [SerializeField] private Text version;
+    private void Start() {
+        if (version != null) {
+            version.text = "Version: " + Application.version.ToString();
+        }
+    }
+    private void OnValidate() {
+        if (version != null) {
+            version.text = "Version: " + Application.version.ToString();
+        }
+    }
     public void PlayGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
@@ -22,7 +32,6 @@ public class MenuOptions : MonoBehaviour
     public void MainMenu() {
         ResetScore();
         transition.EndLevelFadeOut("MainMenu");
-        //SceneManager.LoadScene("MainMenu");
 
     }
 
@@ -57,6 +66,11 @@ public class MenuOptions : MonoBehaviour
     public void Level3() {
         ResetScore();
         transition.EndLevelFadeOut("Zone1c");
+
+    }
+    public void Level4() {
+        ResetScore();
+        transition.EndLevelFadeOut("Zone1d");
 
     }
     public void QuitGame() {
