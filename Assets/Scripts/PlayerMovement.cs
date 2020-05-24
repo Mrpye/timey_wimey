@@ -2,8 +2,8 @@
 using System.Collections;
 using System.IO;
 using UnityEngine;
-
-public class PlayerMovement : MonoBehaviour {
+using UnityEngine.EventSystems;
+public class PlayerMovement : MonoBehaviour{
 
     // private types
     [Serializable]
@@ -85,6 +85,10 @@ public class PlayerMovement : MonoBehaviour {
     public bool player_walk_sound;
     private AudioSource audio;
 
+
+    protected Joystick joy_stick;
+    protected JoyButton joy_button;
+
     private void StartPlayer(GameObject player, int level, bool playback) {
         level_manager.SetGameObjectToPos(player, level);
         is_history_player = playback;
@@ -104,7 +108,11 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Start() {
-       
+
+
+        joy_stick = FindObjectOfType<Joystick>();
+        joy_button = FindObjectOfType<JoyButton>();
+
         audio = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody2D>();
         bol_col = GetComponent<BoxCollider2D>();
@@ -317,7 +325,7 @@ public class PlayerMovement : MonoBehaviour {
                 //*************************
                 //Use a time crystal
                 //*************************
-                if (Input.GetButtonDown("Fire1")) {
+                if (Input.GetButtonDown("Fire1") || joy_button.Pressed) {
                     level_manager.TimeCrystalUsed();
                 }
 
@@ -342,7 +350,10 @@ public class PlayerMovement : MonoBehaviour {
                 //*************************
                 //Make the player Jump down
                 //*************************
-                if ((Input.GetButtonDown("Down") || Input.GetAxisRaw("Vertical") < 0) && bGrounded && jump_off_platform == false) {
+                float input = Input.GetAxisRaw("Horizontal") + joy_stick.Horizontal;
+                float downinput = Input.GetAxisRaw("Vertical") + joy_stick.Vertical;
+
+                if ((Input.GetButtonDown("Down") || downinput < 0) && bGrounded && jump_off_platform == false) {
                     StartCoroutine(JumpOffPlatform());
                 }
 
@@ -354,13 +365,16 @@ public class PlayerMovement : MonoBehaviour {
                 }
                
 
-                float input = Input.GetAxisRaw("Horizontal");
+               
+
+
+                
                 float fHorizontalVelocity = rigid.velocity.x;
                 fHorizontalVelocity += input;
 
-                if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.01f)
+                if (Mathf.Abs(input) < 0.01f)
                     fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingWhenStopping, Time.deltaTime * 10f);
-                else if (Mathf.Sign(Input.GetAxisRaw("Horizontal")) != Mathf.Sign(fHorizontalVelocity))
+                else if (Mathf.Sign(input) != Mathf.Sign(fHorizontalVelocity))
                     fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingWhenTurning, Time.deltaTime * 10f);
                 else
                     fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingBasic, Time.deltaTime * 10f);
@@ -406,4 +420,6 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
     }
+
+  
 }
