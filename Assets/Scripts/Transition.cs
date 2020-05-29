@@ -47,6 +47,9 @@ public class Transition : MonoBehaviour {
                     SceneManager.LoadScene("Zone1d");
                     break;
                 case 3:
+                    SceneManager.LoadScene("Zone1e");
+                    break;
+                case 4:
                     SceneManager.LoadScene("Complete");
                     break;
 

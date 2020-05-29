@@ -73,6 +73,11 @@ public class MenuOptions : MonoBehaviour
         transition.EndLevelFadeOut("Zone1d");
 
     }
+    public void Level5() {
+        ResetScore();
+        transition.EndLevelFadeOut("Zone1e");
+
+    }
     public void QuitGame() {
         Application.Quit();
     }

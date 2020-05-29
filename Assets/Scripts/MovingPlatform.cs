@@ -16,10 +16,10 @@ public class MovingPlatform : MonoBehaviour
         RectTransform rect = GetComponent<RectTransform>();
 
 
-        BoxCollider2D col = child.GetComponent<BoxCollider2D>();
-        float BoxWidth = col.size.x * 0.5f;
-        min = rect.offsetMin.x+ BoxWidth;//transform.position.x;
-        max = rect.offsetMax.x- BoxWidth;
+        //BoxCollider2D col = child.GetComponent<BoxCollider2D>();
+        //float BoxWidth = col.bounds.size.x;
+        //min = rect.offsetMin.x + (BoxWidth * 2);
+        //max = rect.offsetMax.x- (BoxWidth*2);
 
 
     }

@@ -4,6 +4,7 @@ public class Game2DTrigger : MonoBehaviour {
     [SerializeField] public LevelManager level_manager;
     [SerializeField] public AudioClip impact;
     [SerializeField] public bool death = false;
+    [SerializeField] public GameEvent game_event;
     private AudioSource audioSource;
 
     private void Start() {
@@ -48,6 +49,9 @@ public class Game2DTrigger : MonoBehaviour {
             if (level_manager != null) {
                 Target target = gameObject.GetComponent<Target>();
                 if (target != null) {
+                    if (game_event != null) {
+                        game_event.Raise();
+                    }
                     level_manager.TransportTo(collision.gameObject, target);
                 }
             }
