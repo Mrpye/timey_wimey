@@ -214,9 +214,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glowColor: {r: 1, g: 0.83, b: 0, a: 1}
   glowBrightness: 1.45
-  outlineWidth: 10
+  outlineWidth: 5
   alphaThreshold: 0.01
   drawOutside: 0
   enableInstancing: 0
   speed: 1
-  cycle_color: 1
+  cycle_color: 0
