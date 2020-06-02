@@ -59,7 +59,8 @@ namespace SpriteGlow
         private static readonly int outlineColorId = Shader.PropertyToID("_OutlineColor");
         private static readonly int outlineSizeId = Shader.PropertyToID("_OutlineSize");
         private static readonly int alphaThresholdId = Shader.PropertyToID("_AlphaThreshold");
-
+        [SerializeField]  private float speed = 1.0f;
+        [SerializeField] private bool cycle_color = false;
         private MaterialPropertyBlock materialProperties;
 
         private void Awake ()
@@ -84,7 +85,14 @@ namespace SpriteGlow
             // Update material properties when changing serialized fields with editor GUI.
             SetMaterialProperties();
         }
-
+         void  Update() {
+            if (cycle_color) { 
+                float t= (Mathf.Sin(Time.time * speed) + 1) ;
+                //float t = ((Time.time * speed) + 1) / 2;
+                glowColor = Color.Lerp(new Color(0.82f, 0, 1, 1), new Color(1, 0.83f, 0, 1), t);
+                SetMaterialProperties();
+            }
+        }
         private void OnDidApplyAnimationProperties ()
         {
             // Update material properties when changing serialized fields with Unity animation.

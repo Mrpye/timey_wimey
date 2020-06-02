@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8977188797397511755}
   - component: {fileID: 114647336411124836}
   - component: {fileID: 8482093845624266518}
+  - component: {fileID: 114961214790090624}
   m_Layer: 10
   m_Name: HistoryPlayer
   m_TagString: HISTORY_PLAYER
@@ -52,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 28
   m_Sprite: {fileID: 21300000, guid: b314de8430ee51d49b50575614aa4fa5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.29411766}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.54509807}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -133,14 +134,20 @@ MonoBehaviour:
     t: 0
     x: 0
     y: 0
+    grounded: 0
   currentSequence:
     t: 0
     x: 0
     y: 0
+    grounded: 0
   nextSequence:
     t: 0
     x: 0
     y: 0
+    grounded: 0
+  platform_layermask:
+    serializedVersion: 2
+    m_Bits: 0
   animator: {fileID: 0}
   sr: {fileID: 0}
   shadowsr: {fileID: 0}
@@ -157,6 +164,7 @@ MonoBehaviour:
   level_data: {fileID: 11400000, guid: 2201976cdf97b484d9e402ac381fa204, type: 2}
   level_manager: {fileID: 455344914, guid: 0cf57fa5a4462b344964c82af0f9ba69, type: 3}
   audio_jump: {fileID: 0}
+  player_walk_sound: 0
 --- !u!114 &114647336411124836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +180,7 @@ MonoBehaviour:
   level_manager: {fileID: 0}
   impact: {fileID: 8300000, guid: f504f8ca5b111ac4fb0d8b0cbe6d0f9b, type: 3}
   death: 0
+  game_event: {fileID: 0}
 --- !u!95 &8482093845624266518
 Animator:
   serializedVersion: 3
@@ -191,3 +200,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114961214790090624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8977188797397511604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowColor: {r: 1, g: 0.83, b: 0, a: 1}
+  glowBrightness: 1.45
+  outlineWidth: 10
+  alphaThreshold: 0.01
+  drawOutside: 0
+  enableInstancing: 0
+  speed: 1
+  cycle_color: 1
