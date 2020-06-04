@@ -47,10 +47,10 @@ public class PlayerMovement : MonoBehaviour {
 
     // Input sequences
     [SerializeField] public InputSequence oldSequence;
-
     [SerializeField] public InputSequence currentSequence;
     [SerializeField] public InputSequence nextSequence;
     [SerializeField] private LayerMask platform_layermask;
+
     public Animator animator;
     public SpriteRenderer sr;
     public SpriteRenderer shadowsr;

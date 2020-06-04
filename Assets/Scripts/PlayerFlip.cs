@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Function to Flip player
+/// </summary>
 public class PlayerFlip : MonoBehaviour {
     Vector2 v2LocalPosStart;
 

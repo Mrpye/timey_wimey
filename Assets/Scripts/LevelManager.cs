@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //***********************************************************************
-//This is used to handle level and creattion of player and player history
+//This is used to handle level and creation of player and player history
 //***********************************************************************
 public class LevelManager : MonoBehaviour {
 
@@ -23,6 +23,8 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
+    #region Fields
+
     [Header("Debug")]
     [SerializeField] private bool cheat;
 
@@ -35,6 +37,7 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] public DayNight day_night;
 
     [SerializeField] public int change_at;
+
     [Header("Prefabs")]
     [SerializeField] private GameObject history_player_prefab;
 
@@ -104,6 +107,10 @@ public class LevelManager : MonoBehaviour {
     [NonSerialized] public List<FileStream> fs = new List<FileStream>();
     [NonSerialized] public List<int> session_count = new List<int>();
 
+    #endregion Fields
+
+    #region System Events
+
     private void Start() {
         CleanUp();
         day_night_flag = false;
@@ -125,71 +132,11 @@ public class LevelManager : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void Update() {
-        /*if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (ingame_menu != null) {
-                ingame_menu.SetActive(true);
-                Time.timeScale = 0;
-            }
-        }*/
-    }
-
-    public void CleanUpAllElements() {
-        //*********************
-        //Destroy History Items
-        //*********************
-        StopAllCoroutines();
-        foreach (GameObject go in history_players) {
-            Destroy(go);
-        }
-        if (current_spawn_item != null) { Destroy(current_spawn_item); }
-        if (exit_portal != null) { Destroy(exit_portal); }
-        if (current_spawn_item != null) { Destroy(current_spawn_item); }
-        if (incursion_fix_item != null) { Destroy(incursion_fix_item); }
-        Destroy(player);
-        CloseExitPortal();
-        history_players.Clear();
-        current_level = 0;
-        ResetIncursion();
+    private void OnApplicationQuit() {
         CloseAllStreams();
-        Spawn_Spawn_Pickup_Item(current_level);
-        ResetItemCollected();
     }
 
-    public void IncLevel() {
-        current_level++;
-    }
-
-    private IEnumerator MakeInvincible() {
-        invincible = true;
-        yield return new WaitForSeconds(inv_seconds);
-        invincible = false;
-    }
-
-    private IEnumerator FreezeTime() {
-        time_frozen = true;
-        if (time_freeze_audio != null) { audioSource.PlayOneShot(time_freeze_audio, 0.7F); }
-        yield return new WaitForSeconds(time_freeze_seconds);
-        time_frozen = false;
-    }
-
-    public void TimeCrystalUsed() {
-        if (score.lives > 0) {
-            if (time_frozen == false) {
-                DecLife();
-                if (incursions == 0) {
-                    StartCoroutine(FreezeTime());
-                } else {
-                    DecIncursion();
-                }
-            } else {
-                if (incursions > 0) {
-                    DecLife();
-                    DecIncursion();
-                }
-            }
-        }
-    }
+    #endregion System Events
 
     #region Lives
 
@@ -243,22 +190,25 @@ public class LevelManager : MonoBehaviour {
         items_collected++;
     }
 
+    public void TimeCrystalUsed() {
+        if (score.lives > 0) {
+            if (time_frozen == false) {
+                DecLife();
+                if (incursions == 0) {
+                    StartCoroutine(FreezeTime());
+                } else {
+                    DecIncursion();
+                }
+            } else {
+                if (incursions > 0) {
+                    DecLife();
+                    DecIncursion();
+                }
+            }
+        }
+    }
+
     #endregion TimeCrystal Functions
-
-    public void TransportTo(GameObject go, Target target) {
-        if (target.xpos_only == true) {
-            go.transform.position = new Vector3(target.target.position.x, go.transform.position.y, go.transform.position.z);
-        } else {
-            go.transform.position = new Vector3(target.target.transform.position.x, target.target.transform.position.y, go.transform.position.z);
-        }
-    }
-
-    private void IncPickupScore(int points) {
-        if (txtscore != null) {
-            score.score = score.score + points;
-            txtscore.text = "Score: " + score.score.ToString();
-        }
-    }
 
     #region Incursions Functions
 
@@ -302,66 +252,7 @@ public class LevelManager : MonoBehaviour {
 
     #endregion Incursions Functions
 
-    public void CloseStream(int level) {
-        if (session_count[level] <= 0) {
-            session_count[level] = session_count[level] - 1;
-            // Debug.Log("Closing FS " + level);
-            this.fs[level].Close();
-            this.fs[level] = null;
-        }
-    }
-
-    private void OnApplicationQuit() {
-        CloseAllStreams();
-    }
-
-    public void Collition_With_History_Player() {
-        if (invincible == false) {
-            IncIncursion();
-            if (incursions >= max_incursions) {
-                //*********************
-                SpaceTimeDestroyed();
-            }
-        }
-    }
-
-    public void Player_Died() {
-        DecLife();
-        current_level--;
-        if (current_level < 0) { current_level = 0; }
-        if (score.lives < 0) {
-            SpaceTimeDestroyed();
-        } else {
-            //*********************
-            //Destroy History Items
-            //*********************
-            StopAllCoroutines();
-            foreach (GameObject go in history_players) {
-                Destroy(go);
-            }
-            CleanUp();
-
-            Destroy(player);
-            CloseExitPortal();
-            history_players.Clear();
-            time_frozen = false;
-            ResetIncursion();
-            CloseAllStreams();
-            Spawn_Spawn_Pickup_Item(current_level);
-            //ResetItemCollected();
-            DecItemCollected();
-            for (int i = 0; i < current_level; i++) {
-                StartCoroutine(Wait_And_Spawn_New_History_Player(i));
-            }
-            StartCoroutine(Wait_And_Spawn_New_Player(current_level));
-        }
-    }
-
-    public void SpaceTimeDestroyed() {
-        CleanUpAllElements();
-        transition.EndLevelFadeOut("EndGame");
-        //StartCoroutine(Fadout_to_endgame());
-    }
+    #region Timer Functions
 
     private void Start_Timer() {
         Stop_Timer(false);
@@ -389,7 +280,16 @@ public class LevelManager : MonoBehaviour {
         SpaceTimeDestroyed();
     }
 
+    #endregion Timer Functions
+
     #region FileManager
+
+    private void CleanUp() {
+        if (current_spawn_item != null) { Destroy(current_spawn_item); }
+        if (exit_portal != null) { Destroy(exit_portal); }
+        if (current_spawn_item != null) { Destroy(current_spawn_item); }
+        if (incursion_fix_item != null) { Destroy(incursion_fix_item); }
+    }
 
     public void CloseAllStreams() {
         foreach (FileStream fs in this.fs) {
@@ -401,11 +301,13 @@ public class LevelManager : MonoBehaviour {
         session_count.Clear();
     }
 
-    private void CleanUp() {
-        if (current_spawn_item != null) { Destroy(current_spawn_item); }
-        if (exit_portal != null) { Destroy(exit_portal); }
-        if (current_spawn_item != null) { Destroy(current_spawn_item); }
-        if (incursion_fix_item != null) { Destroy(incursion_fix_item); }
+    public void CloseStream(int level) {
+        if (session_count[level] <= 0) {
+            session_count[level] = session_count[level] - 1;
+            // Debug.Log("Closing FS " + level);
+            this.fs[level].Close();
+            this.fs[level] = null;
+        }
     }
 
     public FileStream GetFileStream(int level, bool read) {
@@ -442,6 +344,62 @@ public class LevelManager : MonoBehaviour {
 
     #endregion FileManager
 
+    #region Portal
+
+    public GameObject Spawn_Entry_Portal(GameObject portal_prefab, int level = 0) {
+        current_spawn_item = Instantiate(portal_prefab, spawn_points.spawn_point_list[level_data[level].start].transform.position, Quaternion.identity);
+        return current_spawn_item;
+    }
+
+    public GameObject Spawn_Exit_Portal(int level = 0) {
+        if (exit_portal != null) { Destroy(exit_portal); }
+        exit_portal = Instantiate(exit_portal_prefab, spawn_points.spawn_point_list[level_data[level].exit].transform.position, Quaternion.identity);
+        Animator spawn_portal_a = exit_portal.GetComponent<Animator>();
+        spawn_portal_a.SetInteger("state", 1);
+        Game2DTrigger trig = exit_portal.GetComponent<Game2DTrigger>();
+        trig.level_manager = GetComponent<LevelManager>();
+        return exit_portal;
+    }
+
+    public void CloseExitPortal() {
+        if (exit_portal != null) { Destroy(exit_portal); exit_portal = null; }
+    }
+
+    #endregion Portal
+
+    #region LevelMangment
+
+    public void SpaceTimeDestroyed() {
+        CleanUpAllElements();
+        transition.EndLevelFadeOut("EndGame");
+    }
+
+    public void CleanUpAllElements() {
+        //*********************
+        //Destroy History Items
+        //*********************
+        StopAllCoroutines();
+        foreach (GameObject go in history_players) {
+            Destroy(go);
+        }
+        if (current_spawn_item != null) { Destroy(current_spawn_item); }
+        if (exit_portal != null) { Destroy(exit_portal); }
+        if (current_spawn_item != null) { Destroy(current_spawn_item); }
+        if (incursion_fix_item != null) { Destroy(incursion_fix_item); }
+        Destroy(player);
+        CloseExitPortal();
+        history_players.Clear();
+        current_level = 0;
+        ResetIncursion();
+        CloseAllStreams();
+        Spawn_Spawn_Pickup_Item(current_level);
+        ResetItemCollected();
+    }
+
+    #endregion LevelMangment
+
+    #region SpawnPoint Functions
+
     private void SetSpawnPointRed(int level) {
         SpriteRenderer sr = spawn_points.spawn_point_list[level_data[level].start].GetComponent<SpriteRenderer>();
         sr.color = Color.red;
@@ -466,24 +424,75 @@ public class LevelManager : MonoBehaviour {
         trig.level_manager = GetComponent<LevelManager>();
     }
 
-    public GameObject Spawn_Entry_Portal(GameObject portal_prefab, int level = 0) {
-        current_spawn_item = Instantiate(portal_prefab, spawn_points.spawn_point_list[level_data[level].start].transform.position, Quaternion.identity);
-        return current_spawn_item;
+    #endregion SpawnPoint Functions
+
+    #region Make Invincible or Freez Time
+
+    private IEnumerator MakeInvincible() {
+        invincible = true;
+        yield return new WaitForSeconds(inv_seconds);
+        invincible = false;
     }
 
-    public GameObject Spawn_Exit_Portal(int level = 0) {
-        if (exit_portal != null) { Destroy(exit_portal); }
-        exit_portal = Instantiate(exit_portal_prefab, spawn_points.spawn_point_list[level_data[level].exit].transform.position, Quaternion.identity);
-        Animator spawn_portal_a = exit_portal.GetComponent<Animator>();
-        spawn_portal_a.SetInteger("state", 1);
-        Game2DTrigger trig = exit_portal.GetComponent<Game2DTrigger>();
-        trig.level_manager = GetComponent<LevelManager>();
-        return exit_portal;
+    private IEnumerator FreezeTime() {
+        time_frozen = true;
+        if (time_freeze_audio != null) { audioSource.PlayOneShot(time_freeze_audio, 0.7F); }
+        yield return new WaitForSeconds(time_freeze_seconds);
+        time_frozen = false;
     }
 
-    public void CloseExitPortal() {
-        if (exit_portal != null) { Destroy(exit_portal); exit_portal = null; }
+    #endregion Make Invincible or Freez Time
+
+    #region Actions
+
+    public void IncLevel() {
+        current_level++;
     }
+
+    private void IncPickupScore(int points) {
+        if (txtscore != null) {
+            score.score = score.score + points;
+            txtscore.text = "Score: " + score.score.ToString();
+        }
+    }
+
+    public void TransportTo(GameObject go, Target target) {
+        if (target.xpos_only == true) {
+            go.transform.position = new Vector3(target.target.position.x, go.transform.position.y, go.transform.position.z);
+        } else {
+            go.transform.position = new Vector3(target.target.transform.position.x, target.target.transform.position.y, go.transform.position.z);
+        }
+    }
+
+    public void Time_Crystal_Collected(GameObject go) {
+        AddLife();
+        Destroy(go);
+    }
+
+    public void ItemCollected(GameObject go) {
+        this.Spawn_Exit_Portal(current_level);
+        IncPickupScore(pickup_points);
+        IncItemCollected();
+        if (items_collected >= Incursion_Fix_at && incursion_fix == false) {
+            incursion_fix = true;
+            StartCoroutine(Wait_Spawn_New_Incursion_Fix());
+        }
+        Destroy(go);
+    }
+
+    public void Collision_With_History_Player() {
+        if (invincible == false) {
+            IncIncursion();
+            if (incursions >= max_incursions) {
+                //*********************
+                SpaceTimeDestroyed();
+            }
+        }
+    }
+
+    #endregion Actions
+
+    #region Player And History Player
 
     private IEnumerator Wait_And_Spawn_New_History_Player(int level = 0) {
         this.SetSpawnPointRed(level);
@@ -536,6 +545,10 @@ public class LevelManager : MonoBehaviour {
         pm.fs = GetFileStream(level, true);
     }
 
+    #endregion Player And History Player
+
+    #region LargeTime Crystals
+
     private IEnumerator Wait_Spawn_New_Incursion_Fix() {
         GameObject spawn_portal = Instantiate(player_portal_prefab, spawn_points.spawn_point_list[Incursion_Fix_at_location].transform.position, Quaternion.identity);
         yield return new WaitForSeconds(spawn_wait);
@@ -552,20 +565,40 @@ public class LevelManager : MonoBehaviour {
         trig.level_manager = this;
     }
 
-    public void Time_Crystal_Collected(GameObject go) {
-        AddLife();
-        Destroy(go);
-    }
+    #endregion LargeTime Crystals
 
-    public void ItemCollected(GameObject go) {
-        this.Spawn_Exit_Portal(current_level);
-        IncPickupScore(pickup_points);
-        IncItemCollected();
-        if (items_collected >= Incursion_Fix_at && incursion_fix == false) {
-            incursion_fix = true;
-            StartCoroutine(Wait_Spawn_New_Incursion_Fix());
+    #region Either Die or Reach Goal
+
+    public void Player_Died() {
+        DecLife();
+        current_level--;
+        if (current_level < 0) { current_level = 0; }
+        if (score.lives < 0) {
+            SpaceTimeDestroyed();
+        } else {
+            //*********************
+            //Destroy History Items
+            //*********************
+            StopAllCoroutines();
+            foreach (GameObject go in history_players) {
+                Destroy(go);
+            }
+            CleanUp();
+
+            Destroy(player);
+            CloseExitPortal();
+            history_players.Clear();
+            time_frozen = false;
+            ResetIncursion();
+            CloseAllStreams();
+            Spawn_Spawn_Pickup_Item(current_level);
+            //ResetItemCollected();
+            DecItemCollected();
+            for (int i = 0; i < current_level; i++) {
+                StartCoroutine(Wait_And_Spawn_New_History_Player(i));
+            }
+            StartCoroutine(Wait_And_Spawn_New_Player(current_level));
         }
-        Destroy(go);
     }
 
     public void EndGoal(GameObject go) {
@@ -581,30 +614,26 @@ public class LevelManager : MonoBehaviour {
                 CloseExitPortal();
                 IncLevel();
                 time_frozen = false;
+
                 if (cheat && current_level >= 1) {
                     CleanUpAllElements();
-                    //StartCoroutine(Fadout_to_NextLevel());
                     transition.EndLevelFadeOut("score");
                 } else if (current_level >= level_data.Count) {
                     CleanUpAllElements();
                     transition.EndLevelFadeOut("score");
-                    //StartCoroutine(Fadout_to_NextLevel());
                 } else {
                     StartCoroutine(Wait_And_Spawn_New_Player(current_level));
                     if (current_level > 0) {
                         StartCoroutine(Wait_And_Spawn_New_History_Player(0));
                     }
-                    //current_item_spawn_point--;
                     IncPickupScore(exit_points);
                     Spawn_Spawn_Pickup_Item(current_level);
                 }
-                if (day_night != null && change_at== current_level) {
+                if (day_night != null && change_at == current_level) {
                     if (day_night_flag == false) {
                         day_night_flag = true;
                         day_night.Go();
-
                     }
-                   
                 }
             } else {
                 int tmp_level = pm.current_level + 1;
@@ -615,4 +644,6 @@ public class LevelManager : MonoBehaviour {
             }
         }
     }
+
+    #endregion Either Die or Reach Goal
 }
